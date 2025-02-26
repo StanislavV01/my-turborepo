@@ -1,84 +1,121 @@
-# Turborepo starter
+# Token Tracker
 
-This Turborepo starter is maintained by the Turborepo core team.
+A modern cryptocurrency tracking application built with Next.js and TurboRepo, featuring real-time price updates, detailed token information, and a responsive user interface.
 
-## Using this example
+## Project Overview
 
-Run the following command:
+This application allows users to:
+- View top cryptocurrencies by price
+- Track real-time price updates
+- Filter and sort token data
+- View detailed token information including supply and 24h volume
+- Responsive design for all devices
 
-```sh
-npx create-turbo@latest
+## Tech Stack
+
+- **Frontend**: Next.js, React, TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks
+- **Data Fetching**: Axios
+- **UI Components**: Shadcn/ui
+- **Build Tool**: TurboRepo
+- **API**: CryptoCompare
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18.x or later
+- pnpm (recommended) or npm
+- Git
+
+### Environment Setup
+
+1. Create a `.env.local` file in the `apps/webapp` directory:
+
+```env
+NEXT_PUBLIC_CRYPTOCOMPARE_API_KEY=your_api_key_here
 ```
 
-## What's inside?
+2. Replace `your_api_key_here` with your CryptoCompare API key. You can get one at [CryptoCompare](https://www.cryptocompare.com/cryptopian/api-keys).
 
-This Turborepo includes the following packages/apps:
+### Installation
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+1. Clone the repository:
+```bash
+git clone <repository-url>
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
+2. Install dependencies:
+```bash
+pnpm install
 ```
-cd my-turborepo
+
+3. Start the development server:
+```bash
 pnpm dev
 ```
 
+The application will be available at `http://localhost:3000`.
+
+## Project Structure
+
+```
+apps/
+  ├── webapp/               # Main Next.js application
+  │   ├── src/
+  │   │   ├── components/  # Reusable UI components
+  │   │   ├── modules/     # Feature-specific components
+  │   │   ├── lib/        # Utilities and helpers
+  │   │   └── types/      # TypeScript type definitions
+  │   └── .env.local      # Environment variables
+  └── docs/                # Documentation site
+packages/
+  ├── ui/                  # Shared UI components
+  ├── eslint-config/      # ESLint configuration
+  └── typescript-config/   # TypeScript configuration
+```
+
+## Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm lint` - Run ESLint
+- `pnpm test` - Run tests
+- `pnpm clean` - Clean build outputs
+
+## Development
+
 ### Remote Caching
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+This project uses Turborepo's Remote Caching feature. To enable it:
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+1. Create a Vercel account
+2. Run `npx turbo login`
+3. Link your repository: `npx turbo link`
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+### Adding New Features
 
-```
-cd my-turborepo
-npx turbo login
-```
+1. Create a new branch
+2. Implement your feature
+3. Add tests if applicable
+4. Submit a pull request
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## Contributing
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-```
-npx turbo link
-```
+## License
 
-## Useful Links
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Learn more about the power of Turborepo:
+## Acknowledgments
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [Turborepo](https://turbo.build/repo)
+- [Next.js](https://nextjs.org/)
+- [CryptoCompare API](https://www.cryptocompare.com/api/)
+- [Shadcn/ui](https://ui.shadcn.com/)
