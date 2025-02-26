@@ -1,5 +1,5 @@
 # Token Tracker
-- [APP- PREVIEW](https://my-turborepo-webapp-kvrj3xli0-stanislavv01s-projects.vercel.app/)
+- [APP- PREVIEW](https://my-turborepo-webapp-smoky.vercel.app/)
 
 A modern cryptocurrency tracking application built with Next.js and TurboRepo, featuring real-time price updates, detailed token information, and a responsive user interface.
 
