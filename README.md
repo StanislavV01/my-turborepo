@@ -1,4 +1,5 @@
 # Token Tracker
+- [APP- PREVIEW](https://my-turborepo-webapp-smoky.vercel.app/)
 
 A modern cryptocurrency tracking application built with Next.js and TurboRepo, featuring real-time price updates, detailed token information, and a responsive user interface.
 
@@ -26,7 +27,7 @@ This application allows users to:
 ### Prerequisites
 
 - Node.js 18.x or later
-- pnpm (recommended) or npm
+- npm (recommended) or npm
 - Git
 
 ### Environment Setup
@@ -48,12 +49,12 @@ git clone <repository-url>
 
 2. Install dependencies:
 ```bash
-pnpm install
+npm install
 ```
 
 3. Start the development server:
 ```bash
-pnpm dev
+npm run dev:webapp
 ```
 
 The application will be available at `http://localhost:3000`.
@@ -78,11 +79,11 @@ packages/
 
 ## Available Scripts
 
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm lint` - Run ESLint
-- `pnpm test` - Run tests
-- `pnpm clean` - Clean build outputs
+- `npm dev` - Start development server
+- `npm build` - Build for production
+- `npm lint` - Run ESLint
+- `npm test` - Run tests
+- `npm clean` - Clean build outputs
 
 ## Development
 
