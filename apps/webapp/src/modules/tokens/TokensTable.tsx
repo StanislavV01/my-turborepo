@@ -1,70 +1,41 @@
 "use client"
-import { useEffect, useState, useCallback } from "react"
+import { useCallback } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { DataTable } from "./data-table"
 import { columns } from "./columns"
-import { CoinData } from "@/src/types/token"
 import { ApiResponse } from "@/src/types/ApiResponse"
-import axiosInstance from "@/src/lib/axiosInstance"
+import { axiosClientInstance } from "@/src/lib/axiosInstance"
+import { useState } from "react"
 
 const ITEMS_PER_PAGE = 10
 
-interface TokensTableState {
-  tokens: CoinData[]
-  loading: boolean
-  error: string | null
-  page: number
-  totalCount: number
-}
-
-const initialState: TokensTableState = {
-  tokens: [],
-  loading: true,
-  error: null,
-  page: 1,
-  totalCount: 0,
-}
-
 export default function TokensTable() {
-  const [state, setState] = useState<TokensTableState>(initialState)
-  const { tokens, loading, error, page, totalCount } = state
+  const [page, setPage] = useState(1)
 
-  const fetchTokens = useCallback(async (currentPage: number) => {
-    try {
-      setState(prev => ({ ...prev, loading: true, error: null }))
-
-      const response = await axiosInstance.get<ApiResponse>(
-        `/data/top/price?limit=${ITEMS_PER_PAGE}&tsym=USD&page=${currentPage}`
-      )
-
-      if (!response.data?.Data) {
-        throw new Error('Invalid data format received from API')
-      }
-
-      setState(prev => ({
-        ...prev,
-        tokens: response.data.Data,
-        totalCount: response.data.MetaData?.Count ?? 0,
-        loading: false,
-      }))
-    } catch (err) {
-      console.error('Error fetching tokens:', err)
-      setState(prev => ({
-        ...prev,
-        error: err instanceof Error ? err.message : 'Failed to fetch tokens. Please try again later.',
-        loading: false,
-      }))
-    }
+  const fetchTokens = useCallback(async (page: number) => {
+    const { data } = await axiosClientInstance.get<ApiResponse>(
+      `/tokens?page=${page}&limit=${ITEMS_PER_PAGE}`
+    )
+    return data
   }, [])
 
-  useEffect(() => {
-    fetchTokens(page)
-  }, [page, fetchTokens])
+  const {
+    data,
+    isLoading,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ['tokens', page],
+    queryFn: () => fetchTokens(page),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 2
+  })
 
   const handlePageChange = useCallback((newPage: number) => {
-    setState(prev => ({ ...prev, page: newPage }))
+    setPage(newPage)
   }, [])
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="animate-pulse text-lg">Loading tokens...</div>
@@ -72,11 +43,11 @@ export default function TokensTable() {
     )
   }
 
-  if (error) {
+  if (isError) {
     return (
       <div className="text-red-500 text-center min-h-[400px] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <p>{error}</p>
+          <p>{(error as Error)?.message || 'Failed to fetch tokens. Please try again later.'}</p>
           <button
             onClick={() => fetchTokens(page)}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
@@ -87,6 +58,9 @@ export default function TokensTable() {
       </div>
     )
   }
+
+  const tokens = data?.Data || []
+  const totalCount = data?.MetaData?.Count || 0
 
   return (
     <div className="container mx-auto py-10">

@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create({
+export const axiosClientInstance = axios.create({
+	baseURL: '/api',
+	timeout: 5000,
+	headers: {
+		"Content-type":"application/json; charset=UTF-8",
+	},
+});
+
+export const axiosServerInstance = axios.create({
 	baseURL: 'https://min-api.cryptocompare.com',
 	timeout: 10000,
 	headers: {
@@ -9,7 +17,7 @@ const axiosInstance = axios.create({
 	},
 });
 
-axiosInstance.interceptors.request.use(
+axiosServerInstance.interceptors.request.use(
 	(config) => {
 		return config;
 	},
@@ -18,7 +26,7 @@ axiosInstance.interceptors.request.use(
 	}
 );
 
-axiosInstance.interceptors.response.use(
+axiosServerInstance.interceptors.response.use(
 	(response) => {
 		return response;
 	},
@@ -41,4 +49,4 @@ axiosInstance.interceptors.response.use(
 	}
 );
 
-export default axiosInstance;
+export default axiosServerInstance;
